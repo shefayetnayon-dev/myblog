@@ -13,15 +13,11 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-const categories = [
-    "Technology",
-    "Coding",
-    "Design",
-    "Life",
-    "General"
-]
+interface CategoryFilterProps {
+    categories: string[]
+}
 
-export function CategoryFilter() {
+export function CategoryFilter({ categories }: CategoryFilterProps) {
     const router = useRouter()
     const searchParams = useSearchParams()
     const currentCategory = searchParams.get("category")

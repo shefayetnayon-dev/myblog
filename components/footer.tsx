@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Github, Twitter, Linkedin, Mail } from "lucide-react"
+import { Github, Twitter, Linkedin, Mail, Facebook, Earth } from "lucide-react"
 
 export function Footer() {
     return (
@@ -37,19 +37,20 @@ export function Footer() {
                     <div>
                         <h3 className="font-semibold mb-4">Connect</h3>
                         <div className="flex space-x-4">
-                            <Link href="https://github.com" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                            <Link href="https://github.com/shefayetnayon-dev" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                                 <Github className="h-5 w-5" />
                                 <span className="sr-only">GitHub</span>
                             </Link>
-                            <Link href="https://twitter.com" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                                <Twitter className="h-5 w-5" />
-                                <span className="sr-only">Twitter</span>
+                            <Link href="https://facebook.com/shefayetnayon" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                                <Facebook className="h-5 w-5" />
+                                <span className="sr-only">Facebook</span>
                             </Link>
-                            <Link href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                                <Linkedin className="h-5 w-5" />
-                                <span className="sr-only">LinkedIn</span>
+                            <Link href="https://shefayetnayon.netlify.app" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                                <Earth className="h-5 w-5" />
+                                <span className="sr-only">Website</span>
                             </Link>
-                            <Link href="mailto:hello@example.com" className="text-muted-foreground hover:text-foreground transition-colors">
+
+                            <Link href="mailto:shefayetnayon@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors">
                                 <Mail className="h-5 w-5" />
                                 <span className="sr-only">Email</span>
                             </Link>
@@ -58,7 +59,7 @@ export function Footer() {
                 </div>
 
                 <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-                    <p>&copy; {new Date().getFullYear()} CodeBlog. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} CodeBlog. All rights reserved By Shefayet Nayon.</p>
                 </div>
             </div>
         </footer>

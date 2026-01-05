@@ -8,10 +8,11 @@ import { ChevronLeft, Clock, Calendar } from "lucide-react"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 
-import { getPostBySlug } from "@/lib/posts"
+import { getPostBySlug, getRecommendedPosts } from "@/lib/posts"
 import { generateId } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { TableOfContents } from "@/components/table-of-contents"
+import { BlogCard } from "@/components/blog-card"
 
 interface PageProps {
     params: Promise<{ slug: string }>
@@ -36,6 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function SingleBlogPage({ params }: PageProps) {
     const { slug } = await params
     const post = getPostBySlug(slug)
+    const recommendedPosts = getRecommendedPosts(slug)
 
     if (!post) {
         notFound()
@@ -123,6 +125,20 @@ export default async function SingleBlogPage({ params }: PageProps) {
                     </div>
                 </div>
             </div>
-        </article>
+
+
+            {
+                recommendedPosts.length > 0 && (
+                    <div className="mt-16 border-t pt-10">
+                        <h2 className="text-3xl font-bold tracking-tight mb-8">Recommended Posts</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {recommendedPosts.map((post) => (
+                                <BlogCard key={post.slug} post={post} />
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+        </article >
     )
 }

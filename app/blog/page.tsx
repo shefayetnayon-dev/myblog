@@ -1,7 +1,7 @@
 import { BlogCard } from "@/components/blog-card"
 import { SearchBar } from "@/components/search-bar"
 import { CategoryFilter } from "@/components/category-filter"
-import { getAllPosts } from "@/lib/posts"
+import { getAllPosts, getAllCategories } from "@/lib/posts"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -15,6 +15,7 @@ interface BlogPageProps {
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
     const allPosts = getAllPosts()
+    const categories = getAllCategories()
     const params = await searchParams;
     const query = params.query?.toLowerCase()
     const category = params.category
@@ -24,7 +25,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             ? post.title.toLowerCase().includes(query) ||
             post.excerpt.toLowerCase().includes(query)
             : true
-        const matchesCategory = category ? post.category === category : true
+        const matchesCategory = category ? (post.category?.includes(category)) : true
         return matchesQuery && matchesCategory
     })
 
@@ -33,7 +34,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <h1 className="text-4xl font-bold tracking-tight">All Posts</h1>
                 <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-                    <CategoryFilter />
+                    <CategoryFilter categories={categories} />
                     <SearchBar />
                 </div>
             </div>

@@ -93,3 +93,27 @@ export function getPostBySlug(slug: string): Post | null {
         return null
     }
 }
+
+export function getAllCategories(): string[] {
+    const posts = getAllPosts()
+    const categories = new Set<string>()
+
+    posts.forEach((post) => {
+        if (post.category) {
+            // Split comma-separated categories if present and trim whitespace
+            const postCategories = post.category.split(",").map(c => c.trim())
+            postCategories.forEach(c => {
+                if (c) categories.add(c)
+            })
+        }
+    })
+
+    return Array.from(categories).sort()
+}
+
+export function getRecommendedPosts(currentSlug: string, limit: number = 3): Post[] {
+    const allPosts = getAllPosts()
+    return allPosts
+        .filter((post) => post.slug !== currentSlug)
+        .slice(0, limit)
+}
