@@ -10,14 +10,14 @@ const outfit = Outfit({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     default: "CodeBlog for Developers | Coding Tutorials & Tech Insights",
     template: "%s | CodeBlog"
   },
   description: "Advanced coding tutorials, Next.js tips, and web development best practices for modern developers.",
-  keywords: ["Next.js", "React", "Web Development", "Coding Tutorials", "JavaScript", "Frontend Development", "Programming Blog"],
-  authors: [{ name: "Shefayet Nayon" }],
+  keywords: ["Next.js", "React", "Web Development", "Coding Tutorials", "JavaScript", "Frontend Development", "Programming Blog", "Shefayet Nayon"],
+  authors: [{ name: "Shefayet Nayon", url: "https://shefayetnayon.netlify.app" }],
   creator: "Shefayet Nayon",
   publisher: "Shefayet Nayon",
   formatDetection: {
@@ -29,20 +29,24 @@ export const metadata = {
   alternates: {
     canonical: '/',
   },
-  // Responsive design er jonno viewport (Next.js 14+ e eita alada vabeo deya jay)
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
+  // Google Search Console Verification
+  verification: {
+    google: "cb13ee32ff977eea",
+  },
+  // Extra Info for SEO
+  other: {
+    "contact:email": "shefayetnayon@gmail.com",
+    "contact:phone": "+8809696018379",
+    "contact:address": "https://maps.app.goo.gl/TcDQB2CCo2WbbV7L9",
   },
   openGraph: {
     title: "CodeBlog for Developers",
-    description: "Master the art of coding with in-depth tutorials and tech guides.",
+    description: "Master the art of coding with in-depth tutorials and tech guides by Shefayet Nayon.",
     url: "https://codeblogfordeveloper.vercel.app",
     siteName: "CodeBlog",
     images: [
       {
-        url: "/og-image.png", // Public folder-e 1200x630px er ekta chhobi rakhun
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "CodeBlog for Developers",
@@ -55,7 +59,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "CodeBlog for Developers",
     description: "Deep dive into code and development.",
-    creator: "@your_twitter_handle", // Apnar twitter handle thakle din
+    creator: "@shefayetnayon", 
     images: ["/og-image.png"],
   },
   robots: {
@@ -78,9 +82,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${outfit.variable} antialiased`}
-      >
+      <head>
+        {/* Schema.org JSON-LD for Personal SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Shefayet Nayon",
+              "url": "https://codeblogfordeveloper.vercel.app",
+              "sameAs": [
+                "https://shefayetnayon.netlify.app",
+                "https://github.com/shefayetnayon-dev"
+              ],
+              "jobTitle": "Web Developer",
+              "email": "shefayetnayon@gmail.com",
+              "telephone": "+8809696018379"
+            }),
+          }}
+        />
+      </head>
+      <body className={`${outfit.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
