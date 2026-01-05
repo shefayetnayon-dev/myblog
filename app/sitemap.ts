@@ -1,39 +1,43 @@
 import { MetadataRoute } from 'next'
+import fs from 'fs'
+import path from 'path'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://codeblogfordeveloper.vercel.app'
 
-  // ১. আপনার স্ট্যাটিক পেজগুলো (Home, Blog list, Contact)
+  // ১. ব্লগের ফোল্ডার থেকে সব পোস্টের নাম (slug) বের করা
+  const postsDirectory = path.join(process.cwd(), 'content/posts') // তোর পোস্টের ফোল্ডার অনুযায়ী নাম দিবি
+  
+  let blogPosts: any[] = []
+  
+  // চেক করছি ফোল্ডারটা আসলে আছে কি না (এরর এড়াতে)
+  if (fs.existsSync(postsDirectory)) {
+    const fileNames = fs.readdirSync(postsDirectory)
+    blogPosts = fileNames.map((fileName) => {
+      return {
+        url: `${baseUrl}/blog/${fileName.replace(/\.md$|\.mdx$/, '')}`, // .md বা .mdx বাদ দিয়ে লিঙ্ক তৈরি
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      }
+    })
+  }
+
+  // ২. স্ট্যাটিক পেজগুলো
   const staticPages = [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: 'daily',
       priority: 1,
     },
     {
       url: `${baseUrl}/contact`,
       lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
+      changeFrequency: 'monthly',
       priority: 0.8,
     },
   ]
 
-  // ২. আপনার ব্লগ পোস্টগুলোর জন্য ডাইনামিক স্লাগ (Slug) জেনারেশন
-  // দ্রষ্টব্য: এখানে আপনি আপনার Markdown ফাইলগুলো রিড করে পোস্টের স্লাগগুলো আনতে পারেন।
-  // আপাতত আমি একটি উদাহরণ দিচ্ছি কিভাবে এটি কাজ করে:
-  
-  /* const blogPosts = allPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  })) 
-  */
-
-  // আপাতত শুধু স্ট্যাটিক পেজগুলো রিটার্ন করা হলো
-  return [
-    ...staticPages,
-    // ...blogPosts, (ব্লগ পোস্টের ডাটা থাকলে এখানে স্প্রেড করবেন)
-  ]
+  return [...staticPages, ...blogPosts]
 }
