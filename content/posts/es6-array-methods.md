@@ -3,7 +3,7 @@ title: "ES6 Array Methods - সবকিছু যা আপনার জান�
 date: "2026-01-06T00:00:00.000Z"
 excerpt: "জনপ্রিয় ES6 Array মেথডগুলো (map, filter, reduce, find, forEach) সম্পর্কে বিস্তারিত জানুন সহজ বাংলা ভাষায় এবং কোড এক্সাম্পল সহ।"
 coverImage: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?q=80&w=2070&auto=format&fit=crop"
-category: "JavaScript, ES6, Array Methods, Coding, Programming, Web Development"
+category: "JavaScript, ES6, Coding, Programming, Web Development"
 ---
 
 ## ভূমিকা
