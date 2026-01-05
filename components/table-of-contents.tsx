@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { cn } from "@/lib/utils"
+import { cn, generateId } from "@/lib/utils"
 
 interface TableOfContentsProps {
     content: string
@@ -21,7 +21,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
             if (match) {
                 const level = match[1].length
                 const text = match[2].trim()
-                const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-")
+                const id = generateId(text)
                 extractedHeadings.push({ id, text, level })
             }
         })

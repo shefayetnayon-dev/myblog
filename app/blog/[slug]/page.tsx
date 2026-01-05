@@ -9,6 +9,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 import { getPostBySlug } from "@/lib/posts"
+import { generateId } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { TableOfContents } from "@/components/table-of-contents"
 
@@ -106,9 +107,9 @@ export default async function SingleBlogPage({ params }: PageProps) {
                                         </code>
                                     )
                                 },
-                                h1: ({ node, ...props }) => <h1 id={props.children?.toString().toLowerCase().replace(/[^a-z0-9]+/g, "-")} {...props} />,
-                                h2: ({ node, ...props }) => <h2 id={props.children?.toString().toLowerCase().replace(/[^a-z0-9]+/g, "-")} {...props} />,
-                                h3: ({ node, ...props }) => <h3 id={props.children?.toString().toLowerCase().replace(/[^a-z0-9]+/g, "-")} {...props} />,
+                                h1: ({ node, ...props }) => <h1 id={generateId(props.children?.toString() || "")} {...props} />,
+                                h2: ({ node, ...props }) => <h2 id={generateId(props.children?.toString() || "")} {...props} />,
+                                h3: ({ node, ...props }) => <h3 id={generateId(props.children?.toString() || "")} {...props} />,
                             }}
                         >
                             {post.content}
