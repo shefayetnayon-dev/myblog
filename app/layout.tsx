@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   // Google Search Console Verification
   verification: {
-    google: "googlecb13ee32ff977eea",
+    google: "cb13ee32ff977eea",
   },
   // Extra Info for SEO
   other: {
