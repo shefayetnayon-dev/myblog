@@ -5,26 +5,30 @@ import path from 'path'
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://codeblogfordeveloper.vercel.app'
 
-  // ১. ব্লগের ফোল্ডার থেকে সব পোস্টের নাম (slug) বের করা
-  const postsDirectory = path.join(process.cwd(), 'content/posts') // তোর পোস্টের ফোল্ডার অনুযায়ী নাম দিবি
+  // ১. ব্লগের ফোল্ডার পাথ (Root -> content -> posts)
+  const postsDirectory = path.join(process.cwd(), 'content', 'posts')
   
-  let blogPosts: any[] = []
+  let blogPosts: MetadataRoute.Sitemap = []
   
-  // চেক করছি ফোল্ডারটা আসলে আছে কি না (এরর এড়াতে)
+  // চেক করছি ফোল্ডারটি আছে কি না
   if (fs.existsSync(postsDirectory)) {
     const fileNames = fs.readdirSync(postsDirectory)
-    blogPosts = fileNames.map((fileName) => {
-      return {
-        url: `${baseUrl}/blog/${fileName.replace(/\.md$|\.mdx$/, '')}`, // .md বা .mdx বাদ দিয়ে লিঙ্ক তৈরি
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.7,
-      }
-    })
+    
+    blogPosts = fileNames
+      .filter((fileName) => fileName.endsWith('.md') || fileName.endsWith('.mdx')) // শুধু Markdown ফাইল নিবে
+      .map((fileName) => {
+        const slug = fileName.replace(/\.md$|\.mdx$/, '') // এক্সটেনশন বাদ দিয়ে স্লাগ তৈরি
+        return {
+          url: `${baseUrl}/blog/${slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly' as const,
+          priority: 0.7,
+        }
+      })
   }
 
-  // ২. স্ট্যাটিক পেজগুলো
-  const staticPages = [
+  // ২. তোর স্ট্যাটিক পেজগুলো
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
